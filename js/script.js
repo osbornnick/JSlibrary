@@ -1,4 +1,8 @@
-let myLibrary = [];
+let myLibrary = [
+  new Book('The Hobbit', 'J.R.R. Tolkien', '295', true),
+  new Book('Prep', 'Curtis Sittenfeld', '403', false),
+  new Book('Becoming', 'Michelle Obama', '400', false),
+];
 
 function Book(title, author, pages, read) {
   this.title = title;
@@ -9,7 +13,7 @@ function Book(title, author, pages, read) {
 
 Book.prototype.info = function() {
   const readString = this.read ? 'read' : 'not read yet';
-  return `${this.title} by ${this.author}, ${this.pages} pages, ${readString}`
+  return `by ${this.author}, ${this.pages} pages, ${readString}`
 }
 
 function addBookToLibrary() {
@@ -27,20 +31,25 @@ function addBookToLibrary() {
 }
 
 function render() {
-  const container = document.querySelector('.container');
+  const booklist = document.querySelector('.booklist');
   myLibrary.forEach(book => {
-    const row = document.createElement('div');
-    row.className = 'row';
     const card = document.createElement('div');
     card.className = 'card'
-    card.textContent = book.info();
-    row.appendChild(card);
-    container.appendChild(row);
+    const cardBody = document.createElement('div');
+    cardBody.className = 'card-body';
+    const cardTitle = document.createElement('h5')
+    cardTitle.className = 'card-title';
+    cardTitle.textContent = book.title;
+    const cardText = document.createElement('p');
+    cardText.className = 'card-text';
+    cardText.textContent = book.info();
+    cardBody.appendChild(cardTitle);
+    cardBody.appendChild(cardText);
+    card.appendChild(cardBody)
+    booklist.appendChild(card);
   })
 }
 
-const book = new Book('The Hobbit', 'J.R.R. Tolkien', '295', true);
-myLibrary.push(book);
 render();
 
 // console.log(book.info());
