@@ -31,21 +31,29 @@ function render() {
     const card = document.createElement('div');
     card.className = 'card'
     card.setAttribute('data', i)
+
     const cardBody = document.createElement('div');
     cardBody.className = 'card-body';
+
     const cardTitle = document.createElement('h5')
     cardTitle.className = 'card-title';
     cardTitle.textContent = book.title;
     const cardText = document.createElement('p');
     cardText.className = 'card-text';
     cardText.innerHTML = book.info();
+
     const removeButton = document.createElement('button');
-    removeButton.className = 'deleteButton';
+    removeButton.className = 'deleteButton text-muted';
     removeButton.textContent = 'Remove';
-    removeButton.setAttribute('data', i);
+
+    const toggleRead = document.createElement('button');
+    toggleRead.className = 'toggleRead btn';
+    toggleRead.textContent = book.read ? 'read' : 'not read';
+    toggleRead.classList.add(book.read? 'btn-success' : 'btn-danger');
 
     cardBody.appendChild(cardTitle);
     cardBody.appendChild(cardText);
+    cardBody.appendChild(toggleRead);
     cardBody.appendChild(removeButton);
     card.appendChild(cardBody)
     booklist.appendChild(card);
@@ -56,10 +64,18 @@ function render() {
       removeBook(e);
     })
   });
+
+  document.querySelectorAll('.toggleRead').forEach(btn => {
+    btn.addEventListener("click", e => {
+      const i = e.target.parentElement.parentElement.attributes.data.value;
+      myLibrary[i].toggleRead();
+      render();
+    })
+  })
 }
 
 function removeBook(e) {
-  const i = e.target.attributes.data.value;
+  const i = e.target.parentElement.parentElement.attributes.data.value;
   myLibrary.splice(i, 1);
   render();
 }
