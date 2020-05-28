@@ -2,6 +2,9 @@ let myLibrary = [
   new Book('The Hobbit', 'J.R.R. Tolkien', '295', true),
   new Book('Prep', 'Curtis Sittenfeld', '403', false),
   new Book('Becoming', 'Michelle Obama', '400', false),
+  new Book('The Hobbit', 'J.R.R. Tolkien', '295', true),
+  new Book('Prep', 'Curtis Sittenfeld', '403', false),
+  new Book('Becoming', 'Michelle Obama', '400', false),
 ];
 
 function Book(title, author, pages, read) {
@@ -13,25 +16,18 @@ function Book(title, author, pages, read) {
 
 Book.prototype.info = function() {
   const readString = this.read ? 'read' : 'not read yet';
-  return `by ${this.author}, ${this.pages} pages, ${readString}`
+  return `by ${this.author} <br /> ${this.pages} pages <br /> ${readString}`
 }
 
-function addBookToLibrary() {
-  const title = prompt('Title: ');
-  const author = prompt('Author: ');
-  const pages = prompt('Number of pages: ');
-  const readString = prompt('Have you read it? (true/false): ')
-  if (readString == 'true') {
-    const read = true;
-  } else {
-    const read = false;
-  }
+function addBookToLibrary(title, author, pages, read) {
   const book = new Book(title, author, pages, read);
+  console.log(book);
   myLibrary.push(book);
 }
 
 function render() {
   const booklist = document.querySelector('.booklist');
+  booklist.innerHTML = ""; // clear
   myLibrary.forEach(book => {
     const card = document.createElement('div');
     card.className = 'card'
@@ -42,7 +38,7 @@ function render() {
     cardTitle.textContent = book.title;
     const cardText = document.createElement('p');
     cardText.className = 'card-text';
-    cardText.textContent = book.info();
+    cardText.innerHTML = book.info();
     cardBody.appendChild(cardTitle);
     cardBody.appendChild(cardText);
     card.appendChild(cardBody)
@@ -50,6 +46,17 @@ function render() {
   })
 }
 
+document.querySelector('form').addEventListener("submit", e => {
+  e.preventDefault();
+  const elements = e.target.elements;
+  const title = elements.title.value;
+  const author = elements.author.value;
+  const pages = elements.pages.value;
+  const read = elements.read.checked;
+  addBookToLibrary(title, author, pages, read);
+  render();
+  e.target.reset();
+})
 render();
 
 // console.log(book.info());

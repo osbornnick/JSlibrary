@@ -3,20 +3,58 @@
 
 <head>
   <meta charset="utf-8">
-  <title></title>
+  <title>Library</title>
   <meta name="author" content="Nick Osborn">
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
 
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link href="css/style.css" rel="stylesheet">
 </head>
 
 <body>
-  <div class='container'>
-    <div class="booklist row">
+  <div class='container d-flex flex-wrap justify-content-around'>
+    <div class="booklist column d-flex flex-wrap">
+    </div>
+    <div class="newbook column">
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newBookModal">New Book</button>
+    </div>
+  </div>
 
+  <div class="modal fade" id="newBookModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">New Book</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label for="title">Title</label>
+              <input type="title" class="form-control" id="title" />
+            </div>
+            <div class="form-group">
+              <label for="author">Author</label>
+              <input type="author" class="form-control" id="author" />
+            </div>
+            <div class="form-group">
+              <label for="pages">Pages</label>
+              <input type="pages" class="form-control" id="pages" />
+            </div>
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" id="read" />
+              <label class= "form-check-label" for="read">Read?</label>
+            </div>
+            <button type="submit" class="btn btn-primary" style="float: right;">Add</button>
+          </form>
+        </div>
+        <!-- <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div> -->
+      </div>
     </div>
   </div>
 
