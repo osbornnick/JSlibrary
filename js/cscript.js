@@ -1,3 +1,5 @@
+// refactor with Classes
+
 class Book {
   constructor(title, author, pages, read) {
     this.title = title;
